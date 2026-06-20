@@ -43,6 +43,19 @@ const readPreview = () => ({
 ['ptext', 'psize', 'pcolor', 'popacity', 'poutline-color', 'poutline-thickness', 'pshadow-color', 'pshadow-offset']
     .forEach(id => $(id).addEventListener('input', () => preview.update(readPreview())));
 
+// live numeric readouts for the appearance sliders
+const fmt = {
+    popacity: v => `${Math.round(v * 100)}%`,
+    'poutline-thickness': v => (+v).toFixed(2),
+    'pshadow-offset': v => (+v).toFixed(2)
+};
+Object.keys(fmt).forEach((id) => {
+    const out = $(`${id}-out`);
+    const sync = () => { out.value = fmt[id]($(id).value); };
+    $(id).addEventListener('input', sync);
+    sync();
+});
+
 // background swatches
 document.querySelectorAll('.bg-sw').forEach(btn => btn.addEventListener('click', () => {
     document.querySelectorAll('.bg-sw').forEach(b => b.classList.remove('active'));
