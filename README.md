@@ -29,7 +29,7 @@ Writes `myfont.json` + `myfont.png` (`myfont1.png`, … for multi-page atlases),
 import { generateFont } from '@playcanvas/font-tools';
 import { createNodeImageBackend } from '@playcanvas/font-tools/image-backend-node';
 import { createMsdfgenGlyphSource } from '@playcanvas/font-tools/glyph-source-msdfgen';
-import { opentypeKerningSource } from '@playcanvas/font-tools/kerning-opentype';
+import { fontkitKerningSource } from '@playcanvas/font-tools/kerning-fontkit';
 
 const ttf = new Uint8Array(/* TTF/OTF bytes */);
 const { data, textures } = await generateFont({
@@ -37,7 +37,7 @@ const { data, textures } = await generateFont({
     fontName: 'MyFont',
     glyphSource: await createMsdfgenGlyphSource(ttf),
     imageBackend: createNodeImageBackend(),     // browser backend uses canvas
-    kerningSource: opentypeKerningSource(ttf)
+    kerningSource: fontkitKerningSource(ttf)
 });
 // data    -> font JSON (v3); textures -> one PNG (Uint8Array) per atlas page
 ```

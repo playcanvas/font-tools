@@ -8,7 +8,7 @@
  *   imageBackend — composites glyph bitmaps into atlas pages and encodes PNG bytes
  *                  (canvas in the browser, a pure-JS PNG encoder in Node).
  *   kerningSource — optional; returns raw font-unit kerning pairs + unitsPerEm
- *                  (see ./kerning-opentype.js).
+ *                  (see ./kerning-fontkit.js).
  */
 
 import { packLayout, assembleFontData, scaleKerning, GLYPH_SIZE, PXRANGE } from './convert.js';

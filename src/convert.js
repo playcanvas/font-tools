@@ -6,7 +6,7 @@
  *
  * Units: upstream msdfgen emits metrics in EM units (1 em = 1.0). PlayCanvas font
  * data uses a 32-unit em, so glyph metrics are multiplied by {@link EM_TO_UNITS}.
- * opentype.js kerning is in font units, so it is scaled by EM_TO_UNITS / unitsPerEm.
+ * kerning values are in font units, so they are scaled by EM_TO_UNITS / unitsPerEm.
  */
 
 export const GLYPH_SIZE = 64; // msdfgen -size 64 64
@@ -111,7 +111,7 @@ export function packLayout(count, opts = {}) {
 }
 
 /**
- * Scale a raw kerning table (font units, from opentype.js) into PlayCanvas's
+ * Scale a raw kerning table (font units, from the kerning source) into PlayCanvas's
  * 32-unit em space, keyed by left -> right codepoint.
  *
  * @param {{ left: number, right: number, value: number }[]} pairs - Raw pairs.

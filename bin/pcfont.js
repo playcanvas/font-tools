@@ -14,7 +14,7 @@ import { dirname, basename, extname } from 'node:path';
 import { generateFont } from '../src/index.js';
 import { createNodeImageBackend } from '../src/image-backend-node.js';
 import { createMsdfgenGlyphSource } from '../src/glyph-source-msdfgen.js';
-import { opentypeKerningSource } from '../src/kerning-opentype.js';
+import { fontkitKerningSource } from '../src/kerning-fontkit.js';
 
 const HELP = `pcfont — generate a PlayCanvas MSDF font from a TTF/OTF
 
@@ -78,7 +78,7 @@ async function main() {
         pxrange: o.pxrange,
         glyphSource,
         imageBackend: createNodeImageBackend(),
-        kerningSource: o.kerning ? opentypeKerningSource(ttf) : null
+        kerningSource: o.kerning ? fontkitKerningSource(ttf) : null
     });
     glyphSource.dispose?.();
 

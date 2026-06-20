@@ -22,6 +22,15 @@ export function opentypeKerningSource(fontBuffer) {
         : fontBuffer;
     const font = opentype.parse(ab);
 
+    // Initialize the positioning engine so getKerningValue reads GPOS kerning. Modern
+    // fonts (e.g. Arial) store kerning in GPOS, not the legacy `kern` table; without this
+    // getKerningValue only sees `kern` and returns 0 for them.
+    try {
+        font.position.init();
+    } catch (e) {
+        // no GPOS positioning in this font — fall back to the `kern` table
+    }
+
     return async (codepoints) => {
         const pairs = [];
         for (let l = 0; l < codepoints.length; l++) {
