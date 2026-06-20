@@ -5,3 +5,4 @@ dist/
 # local test fonts (license-safe; never committed)
 public/*.ttf
 public/*.otf
+public/*.wasm

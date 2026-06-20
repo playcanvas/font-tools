@@ -3,8 +3,10 @@ import * as pc from 'playcanvas';
 import { generateFont, CHARSETS } from '@playcanvas/font-tools';
 import { createCanvasImageBackend } from '@playcanvas/font-tools/image-backend-canvas';
 import { createMsdfgenGlyphSource } from '@playcanvas/font-tools/glyph-source-msdfgen';
-// Vite resolves the package's .wasm to a served asset URL; hand it to Emscripten's locateFile.
-import wasmUrl from '@playcanvas/msdfgen-wasm/msdfgen.wasm?url';
+// The .wasm is copied into public/ at (pre)build time (copy-wasm.mjs) and served at the app's
+// base URL; hand its absolute URL to Emscripten's locateFile. (A ?url import of a dependency's
+// wasm subpath resolves in `vite dev` but fails Rollup in production builds.)
+const wasmUrl = new URL(`${import.meta.env.BASE_URL}msdfgen.wasm`, window.location.href).href;
 
 const $ = id => document.getElementById(id);
 

@@ -5,7 +5,9 @@
   "type": "module",
   "description": "Browser MSDF font generator (drag-drop a TTF -> PlayCanvas font), deployed to GitHub Pages.",
   "scripts": {
+    "predev": "node copy-wasm.mjs",
     "dev": "vite",
+    "prebuild": "node copy-wasm.mjs",
     "build": "vite build",
     "preview": "vite preview"
   },
