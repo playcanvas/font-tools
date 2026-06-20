@@ -1,0 +1,19 @@
+{
+  "name": "font-tools-web",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "description": "Browser MSDF font generator (drag-drop a TTF -> PlayCanvas font), deployed to GitHub Pages.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@playcanvas/font-tools": "file:..",
+    "playcanvas": "^2.19.7"
+  },
+  "devDependencies": {
+    "vite": "^6.0.0"
+  }
+}
