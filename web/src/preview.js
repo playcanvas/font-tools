@@ -28,7 +28,10 @@ export function createPreview({ canvas, wrap }) {
     let textEl = null;
     let camera = null;
     let bgMode = 'dark';
-    let last = { text: 'Hello PlayCanvas', size: 64, color: '#ffffff' };
+    let last = {
+        text: 'Hello PlayCanvas', size: 64, color: '#ffffff',
+        opacity: 1, outlineColor: '#000000', outlineThickness: 0, shadowColor: '#000000', shadowOffset: 0
+    };
 
     async function ensureApp() {
         if (app) return;
@@ -100,9 +103,17 @@ export function createPreview({ canvas, wrap }) {
     function update(params) {
         if (params) last = { ...last, ...params };
         if (!textEl) return;
-        textEl.element.text = last.text || ' ';
-        textEl.element.fontSize = parseInt(last.size, 10) || 64;
-        textEl.element.color = hexToColor(last.color);
+        const el = textEl.element;
+        el.text = last.text || ' ';
+        el.fontSize = parseInt(last.size, 10) || 64;
+        el.color = hexToColor(last.color);
+        // appearance — runtime ElementComponent effects, not baked into the font
+        el.opacity = parseFloat(last.opacity);
+        el.outlineColor = hexToColor(last.outlineColor);
+        el.outlineThickness = parseFloat(last.outlineThickness) || 0;
+        el.shadowColor = hexToColor(last.shadowColor);
+        const s = parseFloat(last.shadowOffset) || 0;
+        el.shadowOffset = new pc.Vec2(s, -s);
     }
 
     function setBackground(mode) {
