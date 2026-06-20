@@ -29,7 +29,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - name: Install + build (web/ links the parent font-tools via file:..)
+      # web/ links the parent font-tools via file:.. — install the root deps too so that
+      # font-tools' own source (e.g. glyph-source-msdfgen.js) resolves its bare imports.
+      - name: Install font-tools (root) deps
+        run: npm install
+      - name: Build web tool
         working-directory: web
         run: |
           npm install
