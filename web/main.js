@@ -29,9 +29,19 @@ initDropzone({
 
 initGenerate({ state, controls, preview });
 
-// live preview controls
-const readPreview = () => ({ text: $('ptext').value, size: $('psize').value, color: $('pcolor').value });
-['ptext', 'psize', 'pcolor'].forEach(id => $(id).addEventListener('input', () => preview.update(readPreview())));
+// live preview controls (text + appearance — appearance is preview-only, not baked into the font)
+const readPreview = () => ({
+    text: $('ptext').value,
+    size: $('psize').value,
+    color: $('pcolor').value,
+    opacity: $('popacity').value,
+    outlineColor: $('poutline-color').value,
+    outlineThickness: $('poutline-thickness').value,
+    shadowColor: $('pshadow-color').value,
+    shadowOffset: $('pshadow-offset').value
+});
+['ptext', 'psize', 'pcolor', 'popacity', 'poutline-color', 'poutline-thickness', 'pshadow-color', 'pshadow-offset']
+    .forEach(id => $(id).addEventListener('input', () => preview.update(readPreview())));
 
 // background swatches
 document.querySelectorAll('.bg-sw').forEach(btn => btn.addEventListener('click', () => {

@@ -113,6 +113,21 @@
                 </div>
             </div>
 
+            <div class="pctl appearance">
+                <label class="inline">Opacity <input type="range" id="popacity" min="0" max="1" step="0.05" value="1" aria-label="Text opacity"></label>
+                <span class="sep" aria-hidden="true"></span>
+                <span class="inline">Outline
+                    <input type="color" id="poutline-color" value="#000000" title="Outline color" aria-label="Outline color">
+                    <input type="range" id="poutline-thickness" min="0" max="1" step="0.05" value="0" title="Outline thickness" aria-label="Outline thickness">
+                </span>
+                <span class="sep" aria-hidden="true"></span>
+                <span class="inline">Shadow
+                    <input type="color" id="pshadow-color" value="#000000" title="Shadow color" aria-label="Shadow color">
+                    <input type="range" id="pshadow-offset" min="0" max="3" step="0.25" value="0" title="Shadow offset" aria-label="Shadow offset">
+                </span>
+            </div>
+            <div class="hint appearance-hint">Live preview only — outline, shadow and opacity are PlayCanvas text-element settings, not baked into the exported font.</div>
+
             <div class="preview-wrap" id="preview-wrap">
                 <canvas id="preview" aria-label="Live font preview"></canvas>
                 <div class="empty-state" id="empty-state">
