@@ -44,7 +44,7 @@ header {
     border-bottom: 1px solid var(--border);
 }
 .brand { display: flex; align-items: center; gap: 11px; min-width: 0; }
-.brand .mark { width: 20px; height: 20px; border-radius: 5px; overflow: hidden; flex: none; display: block; }
+.brand .mark { width: 32px; height: 32px; border-radius: 8px; overflow: hidden; flex: none; display: block; }
 .brand h1 { margin: 0; font-size: 16px; font-weight: 600; line-height: 1.2; }
 .brand p { margin: 1px 0 0; color: var(--text-dim); font-size: 12px; }
 .links { display: flex; align-items: center; gap: 16px; flex: none; }
@@ -52,9 +52,9 @@ header {
 .links a:hover { color: var(--text); }
 
 /* ---- Layout ---- */
-main { display: grid; grid-template-columns: 312px 1fr; height: calc(100vh - 58px); }
+main { display: grid; grid-template-columns: 312px 1fr; height: calc(100vh - 63px); }
 .panel { padding: 18px 20px; border-right: 1px solid var(--border); overflow: auto; background: var(--panel); }
-.view { padding: 20px 24px; overflow: auto; }
+.view { padding: 20px 24px; overflow: auto; display: flex; flex-direction: column; }
 
 /* ---- Form primitives ---- */
 .field { margin: 0 0 16px; }
@@ -177,18 +177,22 @@ button.primary:disabled { opacity: .45; cursor: default; }
 /* ---- Preview ---- */
 .view h2 { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: .05em; margin: 0 0 12px; }
 .preview-controls { margin: 0 0 12px; }
-.preview-controls .pf-text { margin: 0 0 12px; }
-.preview-controls .pf-text label { margin: 0 0 6px; }
+.preview-controls .pf-text { margin: 0 0 10px; }
+.preview-controls .pf-text label { margin: 0; }
 .ctl-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: stretch; }
 .ctl { display: flex; flex-direction: column; gap: 8px; padding: 10px 12px; background: #1d1d1d; border: 1px solid var(--border); border-radius: 8px; }
 .ctl-label { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: .05em; }
-.ctl-body { display: flex; align-items: center; gap: 8px; }
+.ctl-body { display: flex; align-items: center; gap: 8px; min-height: 34px; }
 .ctl input[type=number] { width: 64px; }
 .ctl input[type=color] { width: 30px; height: 30px; padding: 0; border: 1px solid var(--border-strong); border-radius: var(--radius); background: var(--elev); cursor: pointer; }
-.ctl input[type=color].outline-sw, .ctl input[type=color].shadow-sw { width: 22px; height: 22px; }
 .ctl input[type=range] { width: 96px; flex: none; accent-color: var(--accent); }
 .ctl .unit { font-size: 12px; color: var(--text-faint); }
 .ctl .val { font-size: 12px; color: var(--text); font-variant-numeric: tabular-nums; min-width: 36px; text-align: right; }
+.ctl .dial { position: relative; width: 34px; height: 34px; flex: none; border-radius: 50%; border: 1px solid var(--border-strong); background: var(--elev); cursor: grab; touch-action: none; }
+.ctl .dial:active { cursor: grabbing; }
+.ctl .dial:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.ctl .dial::before { content: ''; position: absolute; inset: 50%; width: 3px; height: 3px; margin: -1.5px; border-radius: 50%; background: var(--text-faint); }
+.ctl .dial-handle { position: absolute; width: 8px; height: 8px; margin: -4px; border-radius: 50%; background: var(--accent); pointer-events: none; }
 .appearance-hint { margin: 12px 0 0; }
 
 /* Background selector floats inside the canvas — the stage, not the text element. */
@@ -199,7 +203,7 @@ button.primary:disabled { opacity: .45; cursor: default; }
 .bg-sw.light { background: #dcdcdc; }
 .bg-sw.checker { background-color: #bdbdbd; background-image: linear-gradient(45deg, #8f8f8f 25%, transparent 25%, transparent 75%, #8f8f8f 75%), linear-gradient(45deg, #8f8f8f 25%, transparent 25%, transparent 75%, #8f8f8f 75%); background-size: 12px 12px; background-position: 0 0, 6px 6px; }
 
-.preview-wrap { position: relative; width: 100%; height: 360px; border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; background: #141414; }
+.preview-wrap { position: relative; width: 100%; flex: 1 1 auto; min-height: 320px; border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; background: #141414; }
 .preview-wrap.bg-light { background: #dcdcdc; }
 .preview-wrap.bg-checker { background-color: #bdbdbd; background-image: linear-gradient(45deg, #9a9a9a 25%, transparent 25%, transparent 75%, #9a9a9a 75%), linear-gradient(45deg, #9a9a9a 25%, transparent 25%, transparent 75%, #9a9a9a 75%); background-size: 24px 24px; background-position: 0 0, 12px 12px; }
 #preview { width: 100%; height: 100%; display: block; background: transparent; }
@@ -234,7 +238,7 @@ button.primary:disabled { opacity: .45; cursor: default; }
 @media (max-width: 720px) {
     main { display: block; height: auto; }
     .panel { border-right: 0; border-bottom: 1px solid var(--border); }
-    .preview-wrap { height: 260px; }
+    .preview-wrap { flex: none; height: 260px; min-height: 0; }
     header { flex-wrap: wrap; }
     button.primary, .dropzone, .ctl input[type=color], .bg-sw { min-height: 40px; }
 }
