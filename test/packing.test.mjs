@@ -8,7 +8,8 @@ import { readFileSync } from 'node:fs';
 import { packLayout } from '../src/convert.js';
 import { resolveCharset } from '../src/charsets.js';
 
-const ARIAL = 'C:/dev/playcanvas/engine/examples/assets/fonts/arial.json';
+// golden reference vendored from the engine (examples/assets/fonts/arial.json)
+const ARIAL = new URL('./fixtures/arial.json', import.meta.url);
 const arial = JSON.parse(readFileSync(ARIAL, 'utf8'));
 
 // codepoints in the numeric-sort order the Editor feeds them
