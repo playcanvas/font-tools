@@ -6,15 +6,22 @@
   "license": "MIT",
   "exports": {
     ".": "./src/index.js",
-    "./kerning-opentype": "./src/kerning-opentype.js"
+    "./kerning-opentype": "./src/kerning-opentype.js",
+    "./image-backend-node": "./src/image-backend-node.js",
+    "./glyph-source-msdfgen": "./src/glyph-source-msdfgen.js"
+  },
+  "bin": {
+    "pcfont": "./bin/pcfont.js"
   },
   "files": [
-    "src"
+    "src",
+    "bin"
   ],
   "scripts": {
-    "test": "node test/packing.test.mjs && node test/generate.test.mjs"
+    "test": "node test/packing.test.mjs && node test/generate.test.mjs && node test/image-backend.test.mjs"
   },
   "dependencies": {
+    "@playcanvas/msdfgen-wasm": "github:playcanvas/msdfgen-wasm",
     "opentype.js": "^1.3.4"
   },
   "engines": {

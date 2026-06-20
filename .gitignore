@@ -1,2 +1,8 @@
 node_modules/
+out/
+package-lock.json
 *.log
+
+# local validation scratch (absolute paths; need a system font + built wasm)
+test/validate-arial.mjs
+test/check-orientation.mjs
