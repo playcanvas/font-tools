@@ -26,6 +26,7 @@
     ".": "./src/index.js",
     "./kerning-fontkit": "./src/kerning-fontkit.js",
     "./image-backend-node": "./src/image-backend-node.js",
+    "./image-backend-canvas": "./src/image-backend-canvas.js",
     "./glyph-source-msdfgen": "./src/glyph-source-msdfgen.js"
   },
   "bin": {

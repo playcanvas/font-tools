@@ -143,9 +143,14 @@ export function scaleKerning(pairs, unitsPerEm) {
  * @param {{ width: number, height: number }[]} args.maps - Atlas page dimensions.
  * @param {Record<number, Record<number, number>>} [args.kerning] - Scaled kerning table.
  * @param {number} [args.intensity] - SDF intensity (default 0).
+ * @param {number} [args.glyphSize] - Atlas cell size in px; sets the per-glyph `scale` (default {@link GLYPH_SIZE}).
  * @returns {object} The v3 font data.
  */
-export function assembleFontData({ face, codepoints, glyphs, placements, maps, kerning, intensity = 0 }) {
+export function assembleFontData({ face, codepoints, glyphs, placements, maps, kerning, intensity = 0, glyphSize = GLYPH_SIZE }) {
+    // The cell spans 2 em (the binding renders at size/2 px per em) and metrics use a 32-unit em,
+    // so the renderer's per-glyph `scale` maps cell px -> cell units: cellPx / (2 em * EM_TO_UNITS).
+    // At the default 64px cell this is 1 (matching the Editor); at 128px it is 2, etc.
+    const charScale = glyphSize / (2 * EM_TO_UNITS);
     const data = {
         version: 3,
         type: 'msdf',
@@ -173,7 +178,7 @@ export function assembleFontData({ face, codepoints, glyphs, placements, maps, k
             xadvance: g.advance * EM_TO_UNITS,
             xoffset: g.translate[0] * EM_TO_UNITS,
             yoffset: g.translate[1] * EM_TO_UNITS,
-            scale: 1,
+            scale: charScale,
             ...(g.range != null ? { range: g.range * EM_TO_UNITS } : {}),
             ...(g.bounds ? { bounds: g.bounds.map(v => v * EM_TO_UNITS) } : {})
         };

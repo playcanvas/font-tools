@@ -95,7 +95,8 @@ export async function generateFont({
         placements,
         maps,
         kerning,
-        intensity
+        intensity,
+        glyphSize: size
     });
 
     return { data, textures };
