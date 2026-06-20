@@ -44,7 +44,7 @@ header {
     border-bottom: 1px solid var(--border);
 }
 .brand { display: flex; align-items: center; gap: 11px; min-width: 0; }
-.brand .mark { width: 20px; height: 20px; border-radius: 5px; overflow: hidden; flex: none; display: block; }
+.brand .mark { width: 32px; height: 32px; border-radius: 8px; overflow: hidden; flex: none; display: block; }
 .brand h1 { margin: 0; font-size: 16px; font-weight: 600; line-height: 1.2; }
 .brand p { margin: 1px 0 0; color: var(--text-dim); font-size: 12px; }
 .links { display: flex; align-items: center; gap: 16px; flex: none; }
@@ -52,7 +52,7 @@ header {
 .links a:hover { color: var(--text); }
 
 /* ---- Layout ---- */
-main { display: grid; grid-template-columns: 312px 1fr; height: calc(100vh - 58px); }
+main { display: grid; grid-template-columns: 312px 1fr; height: calc(100vh - 63px); }
 .panel { padding: 18px 20px; border-right: 1px solid var(--border); overflow: auto; background: var(--panel); }
 .view { padding: 20px 24px; overflow: auto; display: flex; flex-direction: column; }
 
