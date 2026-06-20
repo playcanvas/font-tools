@@ -4,6 +4,12 @@ Generate [PlayCanvas](https://playcanvas.com) **MSDF font assets** (JSON + atlas
 
 Output matches the PlayCanvas Editor's format exactly — validated to **0.000 metric error** against the engine's golden `arial.json`.
 
+Three ways to use it: the **hosted web app**, the **`pcfont` CLI**, or the **JavaScript API**.
+
+## Web app
+
+No install — generate fonts in your browser at **<https://playcanvas.github.io/font-tools/>**: drop in a TTF/OTF, pick a character set and size, **preview it live in a real PlayCanvas text element**, then download the JSON + atlas. Everything runs client-side — your font is never uploaded.
+
 ## CLI
 
 ```bash
@@ -42,7 +48,7 @@ const { data, textures } = await generateFont({
 // data    -> font JSON (v3); textures -> one PNG (Uint8Array) per atlas page
 ```
 
-`generateFont` is dependency-injected — the **glyph source** (msdfgen WASM) and **image backend** (Node PNG / browser canvas) are pluggable, so the same pipeline runs in Node and the browser. The pure converter (`packLayout`, `assembleFontData`, `scaleKerning`) lives in `src/convert.js`.
+`generateFont` is dependency-injected — the **glyph source** (msdfgen WASM) and **image backend** are pluggable, so the same pipeline runs in Node and the browser. Use `createNodeImageBackend` (`@playcanvas/font-tools/image-backend-node`) in Node, or `createCanvasImageBackend` (`@playcanvas/font-tools/image-backend-canvas`) in the browser. The pure converter (`packLayout`, `assembleFontData`, `scaleKerning`) lives in `src/convert.js`.
 
 ## License
 
