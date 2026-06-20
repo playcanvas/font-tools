@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@playcanvas/font-tools": "file:..",
+    "@playcanvas/msdfgen-wasm": "^0.1.0",
     "playcanvas": "^2.19.7"
   },
   "devDependencies": {
