@@ -39,6 +39,7 @@ const WHITESPACE = new Set([0x20, 0x09, 0x0a, 0x0d, 0xa0]);
  * @param {KerningSource} [opts.kerningSource] - Optional kerning provider.
  * @param {number} [opts.size] - Glyph cell size in px (default {@link GLYPH_SIZE}).
  * @param {number} [opts.pxrange] - MSDF pixel range (default {@link PXRANGE}).
+ * @param {(p: { stage: 'glyphs' | 'pack' | 'composite' | 'kerning', done?: number, total?: number }) => (void | Promise<void>)} [opts.onProgress] - Optional progress callback, awaited so a caller can yield to repaint.
  * @returns {Promise<{ data: object, textures: Uint8Array[] }>} The font JSON and one PNG per atlas page.
  */
 export async function generateFont({
@@ -50,7 +51,8 @@ export async function generateFont({
     imageBackend,
     kerningSource = null,
     size = GLYPH_SIZE,
-    pxrange = PXRANGE
+    pxrange = PXRANGE,
+    onProgress = null
 }) {
     if (!glyphSource) throw new Error('generateFont: `glyphSource` is required');
     if (!imageBackend) throw new Error('generateFont: `imageBackend` is required');
@@ -59,15 +61,19 @@ export async function generateFont({
 
     // 1) generate each glyph; keep only those the font actually provides
     const present = [];
-    for (const cp of codepoints) {
+    for (let i = 0; i < codepoints.length; i++) {
+        const cp = codepoints[i];
         const glyph = await glyphSource.generateGlyph(cp, { size, pxrange });
-        if (!glyph) continue;
-        if (invert && !WHITESPACE.has(cp)) negateRgb(glyph.bitmap);
-        present.push({ cp, glyph });
+        if (glyph) {
+            if (invert && !WHITESPACE.has(cp)) negateRgb(glyph.bitmap);
+            present.push({ cp, glyph });
+        }
+        await onProgress?.({ stage: 'glyphs', done: i + 1, total: codepoints.length });
     }
 
     // 2) pack into atlas page(s)
     const { maps, placements } = packLayout(present.length, { glyphSize: size });
+    await onProgress?.({ stage: 'pack' });
 
     // 3) composite + encode one PNG per page
     const textures = [];
@@ -78,11 +84,13 @@ export async function generateFont({
             glyphs.push({ x: placements[i].x, y: placements[i].y, bitmap: present[i].glyph.bitmap });
         }
         textures.push(await imageBackend.composite({ width: maps[page].width, height: maps[page].height, glyphs }));
+        await onProgress?.({ stage: 'composite', done: page + 1, total: maps.length });
     }
 
     // 4) kerning (optional)
     let kerning = {};
     if (kerningSource) {
+        await onProgress?.({ stage: 'kerning' });
         const { pairs, unitsPerEm } = await kerningSource(present.map(e => e.cp));
         kerning = scaleKerning(pairs, unitsPerEm);
     }
