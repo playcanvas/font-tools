@@ -1,6 +1,6 @@
 {
   "name": "@playcanvas/font-tools",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Generate PlayCanvas MSDF font assets (JSON + atlas PNG) from TTF/OTF fonts, in Node or the browser.",
   "type": "module",
   "license": "MIT",
