@@ -7,6 +7,7 @@
 import { initDropzone } from './src/dropzone.js';
 import { initControls } from './src/controls.js';
 import { createPreview } from './src/preview.js';
+import { createDial } from './src/dial.js';
 import { initGenerate } from './src/generate.js';
 
 const $ = id => document.getElementById(id);
@@ -30,6 +31,8 @@ initDropzone({
 initGenerate({ state, controls, preview });
 
 // live preview controls (text + appearance — appearance is preview-only, not baked into the font)
+// shadow direction is a draggable dial; distance/colour stay as standard inputs
+const shadowDial = createDial({ el: $('pshadow-dir'), value: 45, onInput: () => preview.update(readPreview()) });
 const readPreview = () => ({
     text: $('ptext').value,
     size: $('psize').value,
@@ -38,16 +41,17 @@ const readPreview = () => ({
     outlineColor: $('poutline-color').value,
     outlineThickness: $('poutline-thickness').value,
     shadowColor: $('pshadow-color').value,
-    shadowOffset: $('pshadow-offset').value
+    shadowDistance: $('pshadow-dist').value,
+    shadowAngle: shadowDial.angle
 });
-['ptext', 'psize', 'pcolor', 'popacity', 'poutline-color', 'poutline-thickness', 'pshadow-color', 'pshadow-offset']
+['ptext', 'psize', 'pcolor', 'popacity', 'poutline-color', 'poutline-thickness', 'pshadow-color', 'pshadow-dist']
     .forEach(id => $(id).addEventListener('input', () => preview.update(readPreview())));
 
 // live numeric readouts for the appearance sliders
 const fmt = {
     popacity: v => `${Math.round(v * 100)}%`,
     'poutline-thickness': v => (+v).toFixed(2),
-    'pshadow-offset': v => (+v).toFixed(2)
+    'pshadow-dist': v => (+v).toFixed(2)
 };
 Object.keys(fmt).forEach((id) => {
     const out = $(`${id}-out`);

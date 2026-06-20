@@ -30,7 +30,7 @@ export function createPreview({ canvas, wrap }) {
     let bgMode = 'dark';
     let last = {
         text: 'Hello PlayCanvas', size: 64, color: '#ffffff',
-        opacity: 1, outlineColor: '#000000', outlineThickness: 0, shadowColor: '#000000', shadowOffset: 0
+        opacity: 1, outlineColor: '#000000', outlineThickness: 0, shadowColor: '#000000', shadowDistance: 0, shadowAngle: 45
     };
 
     async function ensureApp() {
@@ -112,8 +112,10 @@ export function createPreview({ canvas, wrap }) {
         el.outlineColor = hexToColor(last.outlineColor);
         el.outlineThickness = parseFloat(last.outlineThickness) || 0;
         el.shadowColor = hexToColor(last.shadowColor);
-        const s = parseFloat(last.shadowOffset) || 0;
-        el.shadowOffset = new pc.Vec2(s, -s);
+        // direction (angle, clockwise from east) + distance → 2D offset; 45° = south-east
+        const dist = parseFloat(last.shadowDistance) || 0;
+        const rad = (parseFloat(last.shadowAngle) || 0) * Math.PI / 180;
+        el.shadowOffset = new pc.Vec2(dist * Math.cos(rad), -dist * Math.sin(rad));
     }
 
     function setBackground(mode) {

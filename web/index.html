@@ -113,7 +113,7 @@
         <div class="view">
             <h2>Preview</h2>
             <div class="preview-controls">
-                <div class="pf-text">
+                <div class="ctl pf-text">
                     <label for="ptext">Text</label>
                     <input type="text" id="ptext" value="Hello PlayCanvas" placeholder="Type to preview…" aria-label="Preview text">
                 </div>
@@ -145,7 +145,7 @@
                     <div class="ctl">
                         <span class="ctl-label">Outline</span>
                         <div class="ctl-body">
-                            <input type="color" id="poutline-color" value="#000000" class="outline-sw" title="Outline color" aria-label="Outline color">
+                            <input type="color" id="poutline-color" value="#000000" title="Outline color" aria-label="Outline color">
                             <input type="range" id="poutline-thickness" min="0" max="1" step="0.05" value="0" title="Outline thickness" aria-label="Outline thickness">
                             <output class="val" id="poutline-thickness-out" for="poutline-thickness">0.00</output>
                         </div>
@@ -154,9 +154,10 @@
                     <div class="ctl">
                         <span class="ctl-label">Shadow</span>
                         <div class="ctl-body">
-                            <input type="color" id="pshadow-color" value="#000000" class="shadow-sw" title="Shadow color" aria-label="Shadow color">
-                            <input type="range" id="pshadow-offset" min="0" max="3" step="0.25" value="0" title="Shadow offset" aria-label="Shadow offset">
-                            <output class="val" id="pshadow-offset-out" for="pshadow-offset">0.00</output>
+                            <input type="color" id="pshadow-color" value="#000000" title="Shadow color" aria-label="Shadow color">
+                            <div id="pshadow-dir" class="dial" role="slider" tabindex="0" title="Shadow direction" aria-label="Shadow direction" aria-valuemin="0" aria-valuemax="360" aria-valuenow="45"></div>
+                            <input type="range" id="pshadow-dist" min="0" max="3" step="0.25" value="0" title="Shadow distance" aria-label="Shadow distance">
+                            <output class="val" id="pshadow-dist-out" for="pshadow-dist">0.00</output>
                         </div>
                     </div>
                 </div>
