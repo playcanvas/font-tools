@@ -1,9 +1,27 @@
 {
   "name": "@playcanvas/font-tools",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Generate PlayCanvas MSDF font assets (JSON + atlas PNG) from TTF/OTF fonts, in Node or the browser.",
   "type": "module",
   "license": "MIT",
+  "keywords": [
+    "msdf",
+    "sdf",
+    "font",
+    "font-generation",
+    "bmfont",
+    "atlas",
+    "text",
+    "playcanvas"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/playcanvas/font-tools.git"
+  },
+  "homepage": "https://github.com/playcanvas/font-tools#readme",
+  "bugs": {
+    "url": "https://github.com/playcanvas/font-tools/issues"
+  },
   "exports": {
     ".": "./src/index.js",
     "./kerning-opentype": "./src/kerning-opentype.js",
@@ -21,8 +39,11 @@
     "test": "node test/packing.test.mjs && node test/generate.test.mjs && node test/image-backend.test.mjs"
   },
   "dependencies": {
-    "@playcanvas/msdfgen-wasm": "github:playcanvas/msdfgen-wasm",
+    "@playcanvas/msdfgen-wasm": "^0.1.0",
     "opentype.js": "^1.3.4"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "engines": {
     "node": ">=18"
